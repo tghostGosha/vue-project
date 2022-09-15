@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 module.exports = {
   root: true,
   env: {
@@ -17,10 +18,14 @@ module.exports = {
     'sourseType': 'module'
   },
   rules: {
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/label-has-for":"off",
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-var': 'error',
-    'max-len': ["error", { "code": 130 }],
+    'max-len': ["error", {
+      "code": 130
+    }],
     "vue/no-multiple-template-root": 0,
     "vue/no-parsing-error": [
       "error",
@@ -30,6 +35,11 @@ module.exports = {
 
       }
     ],
+    "vuejs-accessibility/label-has-for": "off",
+
+
+
+
 
   },
 };

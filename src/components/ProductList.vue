@@ -3,7 +3,7 @@
     <!-- <slot></slot> -->
     <ul class="catalog__list">
 
-      <ProductItem :product="item" v-for="(item, index) in products" v-bind:key="index"></ProductItem>
+      <ProductItem :product="item" v-for="(item) in products" v-bind:key="item.id"></ProductItem>
 
     </ul>
   </div>
