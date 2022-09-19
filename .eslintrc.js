@@ -19,7 +19,7 @@ module.exports = {
   },
   rules: {
     "jsx-a11y/label-has-associated-control": "off",
-    "jsx-a11y/label-has-for":"off",
+    "jsx-a11y/label-has-for": "off",
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-var': 'error',
@@ -32,9 +32,14 @@ module.exports = {
       {
         "unexpected-solidus-in-tag": false,
         "end-tag-with-attributes": false,
-
       }
     ],
+
+    "prefer-const": ["error", {
+      // "destructuring": "all",
+      "ignoreReadBeforeAssign": true
+    }],
+
     "vuejs-accessibility/label-has-for": "off",
 
 

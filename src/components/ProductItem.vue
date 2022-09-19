@@ -59,6 +59,12 @@ export default {
         return {};
       },
     },
+    productColors: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
   },
 };
 </script>
