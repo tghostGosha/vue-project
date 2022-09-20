@@ -30,7 +30,7 @@
         <ul class="colors">
           <li class="colors__item" v-for="color in productsColor" :key="color.id">
             <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" name="color" value="color" checked="">
+              <input class="colors__radio sr-only" type="radio" name="color" v-model="currentColor">
               <span class="colors__value" :style="{background: color}">
               </span>
             </label>
@@ -118,12 +118,12 @@ export default {
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
+      currentColor: '',
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoryId'],
+  props: ['priceFrom', 'priceTo', 'categoryId', 'productColor'],
   computed: {
     productsColor() {
-      console.log(products);
       const colors = products.map((item) => {
         const colorsArray = item.colors;
         return colorsArray;
@@ -138,7 +138,7 @@ export default {
         // console.log(newArrey);
       });
       const colorArray = new Set(newArrayofArrays);
-      console.log(colorArray);
+      // console.log(colorArray);
       return colorArray;
     },
 
@@ -157,6 +157,9 @@ export default {
     categoryId(value) {
       this.currentCategoryId = value;
     },
+    productColor(value) {
+      this.currentColor = value;
+    },
   },
   methods: {
 
@@ -164,11 +167,13 @@ export default {
       this.$emit('update:priceFrom', this.currentPriceFrom);
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
+      this.$emit('update:productColor', this.currentColor);
     },
     reset() {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
+      this.$emit('update:productColor', '');
     },
   },
 };

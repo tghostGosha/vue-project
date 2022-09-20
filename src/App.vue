@@ -40,7 +40,7 @@ export default {
       filterPriceFrom: 0,
       filterPriceTo: 0,
       filterCategoryId: 0,
-      filteredColor: '', //= Фильтрация цвета*
+      filterColor: '', //= Фильтрация цвета*
       page: 1,
       productsPerPage: 3,
       // products,
@@ -49,8 +49,10 @@ export default {
   computed: {
     filteredProducts() {
       let filteredProducts = products;
-      if (this.filteredColor === filteredProducts.color) {
-        filteredProducts = filteredProducts.filter((product) => product.colors === this.filteredColor);
+
+      console.log(filteredProducts);
+      if (this.filterColor) {
+        filteredProducts = filteredProducts.filter((product) => product.colors.includes(this.filterColor));
       }
       if (this.filterPriceFrom > 0) {
         filteredProducts = filteredProducts.filter((product) => product.price > this.filterPriceFrom);
