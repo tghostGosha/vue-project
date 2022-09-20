@@ -30,7 +30,6 @@ import products from './data/products';
 import ProductList from './components/ProductList.vue';
 import BasePagination from './components/BasePagination.vue';
 import ProductFilter from './components/ProductFilter.vue';
-// import ProductItem from './components/ProductItem.vue';
 
 export default {
   name: 'App',
