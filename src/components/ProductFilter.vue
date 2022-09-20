@@ -121,7 +121,7 @@ export default {
       currentColor: '',
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoryId', 'productColor'],
+  props: ['priceFrom', 'priceTo', 'categoryId', 'colorProd'],
   computed: {
     productsColor() {
       const colors = products.map((item) => {
@@ -157,7 +157,7 @@ export default {
     categoryId(value) {
       this.currentCategoryId = value;
     },
-    productColor(value) {
+    colorProd(value) {
       this.currentColor = value;
     },
   },
@@ -167,13 +167,13 @@ export default {
       this.$emit('update:priceFrom', this.currentPriceFrom);
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
-      this.$emit('update:productColor', this.currentColor);
+      this.$emit('update:colorProd', this.currentColor);
     },
     reset() {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
-      this.$emit('update:productColor', '');
+      this.$emit('update:colorProd', '');
     },
   },
 };
