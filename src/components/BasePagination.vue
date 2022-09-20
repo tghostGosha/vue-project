@@ -18,7 +18,7 @@
 
     <li class="pagination__item">
       <a class="pagination__link pagination__link--arrow" href="#" aria-label="Следующая страница"
-        @click.prevent="paginateNext(page, pages)" :class="{'pagination__link--disabled': page == pages}">
+        @click.prevent="paginateNext(page, pages)" :class="{'pagination__link--disabled': page === pages}">
         <svg width="8" height="14" fill="currentColor">
           <use xlink:href="#icon-arrow-right"></use>
         </svg>
@@ -53,7 +53,7 @@ export default {
       }
     },
     paginateNext(page, pages) {
-      if (page <= pages) {
+      if (page < pages) {
         this.$emit('paginate', page + 1);
       } else {
         (
