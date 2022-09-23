@@ -2,7 +2,7 @@
 
   <li class="catalog__item">
 
-    <a class="catalog__pic" href="#">
+    <a class="catalog__pic" href="#" @click.prevent="goToPage('product', {id: product.id})">
       <img v-bind:src="product.image" v-bind:alt="product.title">
     </a>
 
@@ -13,7 +13,7 @@
     </h3>
 
     <span class="catalog__price">
-      {{product.price}} ₽
+      {{product.price | numberFormat}} ₽
     </span>
 
     <ul class="colors colors--black">
@@ -30,12 +30,17 @@
 </template>
 
 <script>
+import goToPage from '@/helpers/goToPage';
+import numberFormat from '@/helpers/numberFormat';
 
 export default {
   data() {
     return {
       color: '#73B6EA',
     };
+  },
+  filters: {
+    numberFormat,
   },
   props: {
     product: {
@@ -51,6 +56,9 @@ export default {
       },
     },
 
+  },
+  methods: {
+    goToPage,
   },
 };
 
