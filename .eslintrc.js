@@ -18,6 +18,14 @@ module.exports = {
     'sourseType': 'module'
   },
   rules: {
+    // "import/extensions": ["error", "always", {
+    //   "js": "never",
+    //   "mjs": "never",
+    //   "jsx": "never",
+    //   "ts": "never",
+    //   "tsx": "never",
+    //   "vue": "never"
+    // }],
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/label-has-for": "off",
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
