@@ -138,7 +138,7 @@
                   </svg>
                 </button>
               </div> -->
-              <ChooseAmount :productAmount="productAmount"></ChooseAmount>
+              <ChooseAmount></ChooseAmount>
 
               <button class="button button--primery" type="submit">
                 В корзину
@@ -220,12 +220,12 @@ import numberFormat from '@/helpers/numberFormat';
 import ChooseAmount from '@/components/ChooseAmount.vue';
 
 export default {
-  data() {
-    return {
-      productAmount: 0,
-    };
-  },
-  // props: [ productAmount ],
+  // data() {
+  //   return {
+  //     productAmount: 0,
+  //   };
+  // },
+
   components: { ChooseAmount },
   filters: {
     numberFormat,

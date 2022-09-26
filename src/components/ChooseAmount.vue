@@ -37,6 +37,7 @@ export default {
         this.productAmount -= 1;
       } else (console.log(this.productAmount));
     },
+
   },
   computed: {
 
