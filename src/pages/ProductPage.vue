@@ -138,7 +138,7 @@
                   </svg>
                 </button>
               </div> -->
-              <ChooseAmount></ChooseAmount>
+              <ChooseAmount v-on="productAmount"></ChooseAmount>
 
               <button class="button button--primery" type="submit">
                 В корзину
