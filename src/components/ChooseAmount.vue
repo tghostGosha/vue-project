@@ -8,7 +8,7 @@
     </button>
     <label for="count"></label>
 
-    <input type="text" v-model.number="productAmount">
+    <input type="text" :value="productAmount">
 
     <button type="button" aria-label="Добавить один товар" @click="amountPlus">
       <svg width="12" height="12" fill="currentColor">
@@ -24,9 +24,16 @@
 export default {
   data() {
     return {
-      productAmount: 0,
+      productAmount: 1,
 
     };
+  },
+  watch: {
+    productAmount(value) {
+      this.$emit('input', value);
+      console.log(value);
+    },
+
   },
   methods: {
     amountPlus() {

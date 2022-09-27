@@ -25,32 +25,7 @@
         <div class="pics__wrapper">
           <img width="570" height="570" :src="product.image" :alt="product.title">
         </div>
-        <!-- <ul class="pics__list">
-          <li class="pics__item">
-            <a href="" class="pics__link pics__link--current">
-              <img width="98" height="98" src="img/phone-square-1.jpg" srcset="img/phone-square-1@2x.jpg 2x"
-                alt="Название товара">
-            </a>
-          </li>
-          <li class="pics__item">
-            <a href="" class="pics__link">
-              <img width="98" height="98" src="img/phone-square-2.jpg" srcset="img/phone-square-2@2x.jpg 2x"
-                alt="Название товара">
-            </a>
-          </li>
-          <li class="pics__item">
-            <a href="" class="pics__link">
-              <img width="98" height="98" src="img/phone-square-3.jpg" srcset="img/phone-square-3@2x.jpg 2x"
-                alt="Название товара">
-            </a>
-          </li>
-          <li class="pics__item">
-            <a class="pics__link" href="#">
-              <img width="98" height="98" src="img/phone-square-4.jpg" srcset="img/phone-square-4@2x.jpg 2x"
-                alt="Название товара">
-            </a>
-          </li>
-        </ul> -->
+
       </div>
 
       <div class="item__info">
@@ -122,22 +97,7 @@
             </fieldset>
 
             <div class="item__row">
-              <!-- <div class="form__counter">
-                <button type="button" aria-label="Убрать один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-minus"></use>
-                  </svg>
-                </button>
-                <label for="count"></label>
 
-                <input type="text" v-model.number="productAmount">
-
-                <button type="button" aria-label="Добавить один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-plus"></use>
-                  </svg>
-                </button>
-              </div> -->
               <ChooseAmount v-model.number="productAmount"></ChooseAmount>
 
               <button class="button button--primery" type="submit">
@@ -220,11 +180,11 @@ import numberFormat from '@/helpers/numberFormat';
 import ChooseAmount from '@/components/ChooseAmount.vue';
 
 export default {
-  // data() {
-  //   return {
-  //     productAmount: 0,
-  //   };
-  // },
+  data() {
+    return {
+      productAmount: 0,
+    };
+  },
 
   components: { ChooseAmount },
   filters: {
