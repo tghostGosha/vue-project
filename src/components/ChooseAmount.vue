@@ -8,7 +8,7 @@
     </button>
     <label for="count"></label>
 
-    <input type="text" :value="productAmount">
+    <input type="text" v-model.number="productAmount">
 
     <button type="button" aria-label="Добавить один товар" @click="amountPlus">
       <svg width="12" height="12" fill="currentColor">
@@ -24,8 +24,7 @@
 export default {
   data() {
     return {
-      productAmount: 1,
-
+      productAmount: this.$attrs.value,
     };
   },
   watch: {
@@ -47,7 +46,14 @@ export default {
 
   },
   computed: {
-
+    // amount: {
+    //   get() {
+    //     return this.item.amount;
+    //   },
+    //   set(value) {
+    //     this.$store.commit('updateCartProduct', { productId: this.item.productId, amount: value });
+    //   },
+    // },
   },
 };
 </script>

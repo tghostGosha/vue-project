@@ -11,7 +11,7 @@
       Артикул: {{item.product.id}}
     </span>
 
-    <div class="product__counter form__counter">
+    <!-- <div class="product__counter form__counter">
       <button type="button" aria-label="Убрать один товар">
         <svg width="10" height="10" fill="currentColor">
           <use xlink:href="#icon-minus"></use>
@@ -25,7 +25,8 @@
           <use xlink:href="#icon-plus"></use>
         </svg>
       </button>
-    </div>
+    </div> -->
+    <ChooseAmount v-model.number="amount" ></ChooseAmount>
 
     <b class="product__price">
       {{(item.amount*item.product.price) | numberFormat}} ₽
@@ -43,8 +44,16 @@
 <script>
 import numberFormat from '@/helpers/numberFormat';
 import { mapMutations } from 'vuex';
+import ChooseAmount from './ChooseAmount.vue';
 
 export default {
+  // data() {
+  //   return {
+  //     productAmount: 0,
+
+  //   };
+  // },
+  components: { ChooseAmount },
   filters: { numberFormat },
   props: ['item'],
   computed: {

@@ -98,7 +98,7 @@
 
             <div class="item__row">
 
-              <ChooseAmount v-model.number="productAmount"></ChooseAmount>
+              <ChooseAmount v-model.number="productAmount" ></ChooseAmount>
 
               <button class="button button--primery" type="submit">
                 В корзину
