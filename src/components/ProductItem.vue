@@ -19,8 +19,8 @@
     <ul class="colors colors--black">
       <li class="colors__item" v-for="color in product.colors" :key="color.id">
         <label class="colors__label">
-          <input class="colors__radio sr-only" type="radio" :value="color">
-          <span class="colors__value" :style="{background: color}">
+          <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.code" > <!--checked=""-->
+          <span class="colors__value" :style="{background: color.code}">
           </span>
         </label>
       </li>
@@ -34,11 +34,11 @@ import goToPage from '@/helpers/goToPage';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
-  data() {
-    return {
-      color: '#73B6EA',
-    };
-  },
+  // data() {
+  //   return {
+  //     color: '#73B6EA',
+  //   };
+  // },
   filters: {
     numberFormat,
   },
@@ -49,12 +49,12 @@ export default {
         return {};
       },
     },
-    productColors: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
+    // productColors: {
+    //   type: Array,
+    //   default() {
+    //     return [];
+    //   },
+    // },
 
   },
   methods: {

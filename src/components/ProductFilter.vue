@@ -19,7 +19,7 @@
         <legend class="form__legend">Категория</legend>
         <label class="form__label form__label--select">
           <select class="form__select" type="text" name="category" v-model.number="currentCategoryId">
-            <option value="0">Все категории</option>
+            <option >Все категории</option>
             <option :value="category.id" v-for="category in categories" :key="category.id">{{category.title}}</option>
           </select>
         </label>
@@ -30,8 +30,8 @@
         <ul class="colors">
           <li class="colors__item" v-for="color in productsColor" :key="color.id">
             <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" name="color" :value="color" v-model="currentColor">
-              <span class="colors__value" :style="{background: color}">
+              <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.code" v-model="currentColor">
+              <span class="colors__value" :style="{background: color.code}">
               </span>
             </label>
           </li>
@@ -109,8 +109,10 @@
 </template>
 
 <script>
-import categories from '@/data/categories';
-import products from '@/data/products';
+// import categories from '@/data/categories';
+// import products from '@/data/products';
+import axios from 'axios';
+import API_BASE_URL from '@/config';
 
 export default {
   data() {
@@ -119,31 +121,34 @@ export default {
       currentPriceTo: 0,
       currentCategoryId: 0,
       currentColor: '',
+      categoriesData: null,
+      colorsData: null,
     };
   },
   props: ['priceFrom', 'priceTo', 'categoryId', 'colorProd'],
   computed: {
     productsColor() {
-      const colors = products.map((item) => {
-        const colorsArray = item.colors;
-        return colorsArray;
-      });
+      // const colors = products.map((item) => {
+      //   const colorsArray = item.colors;
+      //   return colorsArray;
+      // });
 
-      const newArrayofArrays = [];
-      colors.forEach((element) => {
-        element.forEach((el) => {
-          newArrayofArrays.push(el);
-        });
-        // console.log(element);
-        // console.log(newArrey);
-      });
-      const colorArray = new Set(newArrayofArrays);
-      // console.log(colorArray);
-      return colorArray;
+      // const newArrayofArrays = [];
+      // colors.forEach((element) => {
+      //   element.forEach((el) => {
+      //     newArrayofArrays.push(el);
+      //   });
+      //   // console.log(element);
+      //   // console.log(newArrey);
+      // });
+      // const colorArray = new Set(newArrayofArrays);
+      // // console.log(colorArray);
+      // return colorArray;
+      return this.colorsData ? this.colorsData.items : [];
     },
 
     categories() {
-      return categories;
+      return this.categoriesData ? this.categoriesData.items : [];
     },
   },
 
@@ -173,8 +178,20 @@ export default {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
-      this.$emit('update:colorProd', '');
+      this.$emit('update:colorProd', 0);
     },
+    loadCategories() {
+      axios.get(`${API_BASE_URL}/api/productCategories`)
+        .then((response) => { this.categoriesData = response.data; });
+    },
+    loadColors() {
+      axios.get(`${API_BASE_URL}/api/colors`)
+        .then((response) => { this.colorsData = response.data; });
+    },
+  },
+  created() {
+    this.loadCategories();
+    this.loadColors();
   },
 };
 

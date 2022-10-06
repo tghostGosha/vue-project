@@ -3,9 +3,9 @@
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link" href="index.html">
+          <router-link class="breadcrumbs__link" :to="{name: 'main'}">
             Каталог
-          </a>
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
           <a class="breadcrumbs__link">
@@ -26,7 +26,7 @@
       <form class="cart__form form" action="#" method="POST">
         <div class="cart__field">
           <ul class="cart__list">
-            <CartItem  v-for="item in products" :key="item.productId" :item="item">
+            <CartItem v-for="item in products" :key="item.productId" :item="item">
               <div class="product__pic">
                 <img :src="item.product.image" width="120" height="120" :alt="item.product.title">
               </div>
@@ -89,12 +89,16 @@
 import numberFormat from '@/helpers/numberFormat';
 import { mapGetters } from 'vuex';
 import CartItem from '@/components/CartItem.vue';
+import goToPage from '@/helpers/goToPage';
 
 export default {
   filters: { numberFormat },
   components: { CartItem },
   computed: {
     ...mapGetters({ products: 'cartDetailProducts', totalPrice: 'cartTotalPrice' }), //= =Проксируем//
+  },
+  methods: {
+    goToPage,
   },
 };
 </script>
