@@ -24,10 +24,22 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex';
 import CartIndicator from './components/CartIndicator.vue';
 import FooterComponent from './components/FooterComponent.vue';
 
 export default {
   components: { CartIndicator, FooterComponent },
+  created() {
+    const userAccessKey = localStorage.getItem('userAccessKey');
+    if (userAccessKey) {
+      this.updateUserAccessKey(userAccessKey);
+    }
+    this.loadCart(); // вызываем из глобального хранилища с помощью MapActions
+  },
+  methods: {
+    ...mapActions(['loadCart']),
+    ...mapMutations(['updateUserAccessKey']),
+  },
 };
 </script>

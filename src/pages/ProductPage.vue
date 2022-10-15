@@ -1,5 +1,11 @@
 <template>
-  <main class="content container">
+  <loader v-if="productLoading" object="#1ed25d" color1="#ffffff" color2="#2bb141" size="15" speed="2" bg="#343a40"
+    objectbg="#999793" opacity="80" disableScrolling="false" name="circular"></loader>
+
+  <div v-else-if="productLoadingFailed">Произошла ошибка при загрузке товара
+    <button @click.prevent="loadProducts">Перезапустить</button>
+  </div>
+  <main class="content container" v-else-if="productData">
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
@@ -23,7 +29,7 @@
     <section class="item">
       <div class="item__pics pics">
         <div class="pics__wrapper">
-          <img width="570" height="570" :src="product.image" :alt="product.title">
+          <img width="570" height="570" :src="productImage" :alt="product.title">
         </div>
 
       </div>
@@ -44,24 +50,13 @@
               <ul class="colors">
                 <li class="colors__item" v-for="color in product.colors" :key="color.id">
                   <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio" name="color-item" value="blue" checked="">
-                    <span class="colors__value" style="background-color: #73B6EA;">
+                    <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.code"
+                      v-model="currentColor">
+                    <span class="colors__value" :style="{background: color.code}">
                     </span>
                   </label>
                 </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio" name="color-item" value="yellow">
-                    <span class="colors__value" style="background-color: #FFBE15;">
-                    </span>
-                  </label>
-                </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio" name="color-item" value="gray">
-                    <span class="colors__value" style="background-color: #939393;">
-                    </span></label>
-                </li>
+
               </ul>
             </fieldset>
 
@@ -98,7 +93,7 @@
 
             <div class="item__row">
 
-              <ChooseAmount v-model.number="productAmount" ></ChooseAmount>
+              <ChooseAmount v-model.number="productAmount"></ChooseAmount>
 
               <button class="button button--primery" type="submit">
                 В корзину
@@ -173,16 +168,22 @@
 </template>
 <script>
 
-import products from '@/data/products';
-import categories from '@/data/categories';
+// import products from '@/data/products';
+// import categories from '@/data/categories';
 import goToPage from '@/helpers/goToPage';
 import numberFormat from '@/helpers/numberFormat';
 import ChooseAmount from '@/components/ChooseAmount.vue';
+import axios from 'axios';
+import API_BASE_URL from '@/config';
 
 export default {
   data() {
     return {
       productAmount: 0,
+      productData: null,
+      productLoading: false,
+      productLoadingFailed: false,
+
     };
   },
 
@@ -192,16 +193,41 @@ export default {
   },
   computed: {
     product() {
-      return products.find((product) => product.id === +this.$route.params.id);
+      return this.productData;
+    },
+    productImage() {
+      return this.productData.image.file.url;
     },
     category() {
-      return categories.find((category) => category.id === this.product.categoryID);
+      return this.productData.category;
     },
   },
   methods: {
     goToPage,
     addToCart() {
       this.$store.commit('addProductToCart', { productId: this.product.id, amount: this.productAmount });
+    },
+    loadProduct() {
+      this.productLoading = true;
+      this.productLoadingFailed = false;
+      clearTimeout(this.loadProductsTimer); // Очищаем таймаут при вызове
+      this.loadProductsTimer = setTimeout(() => { // Оборачиваем в тайм аут, чтобы вызов с сервера был только один
+        axios.get(`${API_BASE_URL}/api/products/${this.$route.params.id}`)
+          .then((response) => { this.productData = response.data; })
+          .catch(() => { this.productLoadingFailed = true; })
+          .then(() => { this.productLoading = false; });
+      }, 1000);
+    },
+  },
+  // created() {
+  //   this.loadProduct();
+  // },
+  watch: { // чтобы страница товара перерисовывалась, при изменении id товара в адресной строке, добавлеяем watcher
+    '$route.params.id': {
+      handler() {
+        this.loadProduct();
+      },
+      immediate: true, // чтобы избавится от хука created
     },
   },
 

@@ -19,7 +19,7 @@
         <legend class="form__legend">Категория</legend>
         <label class="form__label form__label--select">
           <select class="form__select" type="text" name="category" v-model.number="currentCategoryId">
-            <option >Все категории</option>
+            <option value="0">Все категории</option>
             <option :value="category.id" v-for="category in categories" :key="category.id">{{category.title}}</option>
           </select>
         </label>
@@ -30,7 +30,8 @@
         <ul class="colors">
           <li class="colors__item" v-for="color in productsColor" :key="color.id">
             <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.code" v-model="currentColor">
+              <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.code"
+                v-model="currentColor">
               <span class="colors__value" :style="{background: color.code}">
               </span>
             </label>

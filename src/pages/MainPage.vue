@@ -15,6 +15,12 @@
       </ProductFilter>
       <section class="catalog">
 
+        <loader v-if="productsLoading" object="#1ed25d" color1="#ffffff" color2="#2bb141" size="15" speed="2"
+          bg="#343a40" objectbg="#999793" opacity="80" disableScrolling="false" name="circular"></loader>
+
+        <div v-if="productsLoadingFailed">Произошла ошибка при загрузке товаров
+          <button @click.prevent="loadProducts">Перезапустить</button>
+        </div>
         <ProductList :products="products"></ProductList>
 
         <BasePagination v-model="page" :count="countProducts" :per-page="productsPerPage"></BasePagination>
@@ -44,30 +50,11 @@ export default {
       page: 1,
       productsPerPage: 5,
       productsData: null,
+      productsLoading: false,
+      productsLoadingFailed: false,
     };
   },
   computed: {
-    // filteredProducts() {
-    //   let filteredProducts = products;
-
-    //   console.log(filteredProducts);
-    //   if (this.filterColor) {
-    //     filteredProducts = filteredProducts.filter((product) => product.colors.includes(this.filterColor));
-    //   }
-    //   if (this.filterPriceFrom > 0) {
-    //     filteredProducts = filteredProducts.filter((product) => product.price > this.filterPriceFrom);
-    //   }
-
-    //   if (this.filterPriceTo > 0) {
-    //     filteredProducts = filteredProducts.filter((product) => product.price < this.filterPriceTo);
-    //   }
-
-    //   if (this.filterCategoryId) {
-    //     filteredProducts = filteredProducts.filter((product) => product.categoryID === this.filterCategoryId);
-    //   }
-
-    //   return filteredProducts;
-    // },
     products() {
       return this.productsData
         ? this.productsData.items.map((product) => ({
@@ -82,6 +69,8 @@ export default {
   },
   methods: {
     loadProducts() {
+      this.productsLoading = true;
+      this.productsLoadingFailed = false;
       clearTimeout(this.loadProductsTimer); // Очищаем таймаут при вызове
       this.loadProductsTimer = setTimeout(() => { // Оборачиваем в тайм аут, чтобы вызов с сервера был только один
         axios.get(`${API_BASE_URL}/api/products`, {
@@ -94,8 +83,10 @@ export default {
             maxPrice: this.filterPriceTo,
           },
         })
-          .then((response) => { this.productsData = response.data; });
-      }, 0);
+          .then((response) => { this.productsData = response.data; })
+          .catch(() => { this.productsLoadingFailed = true; })
+          .then(() => { this.productsLoading = false; });
+      }, 1000);
     },
   },
   watch: { // следим за фильтрацией и выбраннйо страницей, исходя из этого отрисовывем список
@@ -108,10 +99,10 @@ export default {
     filterPriceTo() {
       this.loadProducts();
     },
-    categoryId() {
+    filterCategoryId() {
       this.loadProducts();
     },
-    colorId() {
+    filterColor() {
       this.loadProducts();
     },
   },

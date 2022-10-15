@@ -1,5 +1,13 @@
 <template>
+
   <main class="content container">
+    <loader v-if="productLoading" object="#1ed25d" color1="#ffffff" color2="#2bb141" size="15" speed="2" bg="#343a40"
+      objectbg="#999793" opacity="80" disableScrolling="false" name="circular"></loader>
+
+    <div v-else-if="productLoadingFailed">Произошла ошибка при загрузке товара
+      <button @click.prevent="loadProducts">Перезапустить</button>
+    </div>
+
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
@@ -23,6 +31,7 @@
     </div>
 
     <section class="cart">
+
       <form class="cart__form form" action="#" method="POST">
         <div class="cart__field">
           <ul class="cart__list">
@@ -90,8 +99,18 @@ import numberFormat from '@/helpers/numberFormat';
 import { mapGetters } from 'vuex';
 import CartItem from '@/components/CartItem.vue';
 import goToPage from '@/helpers/goToPage';
+import axios from 'axios';
+import API_BASE_URL from '@/config';
 
 export default {
+  data() {
+    return {
+
+      productLoading: false,
+      productLoadingFailed: false,
+
+    };
+  },
   filters: { numberFormat },
   components: { CartItem },
   computed: {
@@ -99,6 +118,17 @@ export default {
   },
   methods: {
     goToPage,
+    loadProducts() {
+      this.productLoading = true;
+      this.productLoadingFailed = false;
+      clearTimeout(this.loadProductsTimer); // Очищаем таймаут при вызове
+      this.loadProductsTimer = setTimeout(() => { // Оборачиваем в тайм аут, чтобы вызов с сервера был только один
+        axios.get(`${API_BASE_URL}/api/products/${this.$route.params.id}`)
+          .then((response) => { this.productData = response.data; })
+          .catch(() => { this.productLoadingFailed = true; })
+          .then(() => { this.productLoading = false; });
+      }, 1000);
+    },
   },
 };
 </script>
