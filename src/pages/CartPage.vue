@@ -105,7 +105,7 @@ import API_BASE_URL from '@/config';
 export default {
   data() {
     return {
-
+      productData: null,
       productLoading: false,
       productLoadingFailed: false,
 
@@ -123,7 +123,7 @@ export default {
       this.productLoadingFailed = false;
       clearTimeout(this.loadProductsTimer); // Очищаем таймаут при вызове
       this.loadProductsTimer = setTimeout(() => { // Оборачиваем в тайм аут, чтобы вызов с сервера был только один
-        axios.get(`${API_BASE_URL}/api/products/${this.$route.params.id}`)
+        axios.get(`${API_BASE_URL}/api/baskets`)
           .then((response) => { this.productData = response.data; })
           .catch(() => { this.productLoadingFailed = true; })
           .then(() => { this.productLoading = false; });
