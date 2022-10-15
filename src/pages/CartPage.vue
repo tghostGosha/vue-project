@@ -130,5 +130,8 @@ export default {
       }, 1000);
     },
   },
+  created() {
+    this.loadProducts();
+  },
 };
 </script>
