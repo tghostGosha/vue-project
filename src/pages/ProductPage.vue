@@ -50,8 +50,8 @@
               <ul class="colors">
                 <li class="colors__item" v-for="color in product.colors" :key="color.id">
                   <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.code"
-                      v-model="currentColor">
+                    <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.id"
+                      v-model="currentColorId">
                     <span class="colors__value" :style="{background: color.code}">
                     </span>
                   </label>
@@ -95,10 +95,13 @@
 
               <ChooseAmount v-model.number="productAmount"></ChooseAmount>
 
-              <button class="button button--primery" type="submit">
+              <button class="button button--primery" type="submit" :disabled="productAddSending">
                 В корзину
               </button>
             </div>
+            <div v-show="productAdded">Товар добавлен в корзину</div>
+            <loader v-show="productAddSending" object="#1ed25d" color1="#ffffff" color2="#2bb141" size="15" speed="2"
+              bg="#343a40" objectbg="#999793" opacity="80" disableScrolling="false" name="circular"></loader>
           </form>
         </div>
       </div>
@@ -175,6 +178,7 @@ import numberFormat from '@/helpers/numberFormat';
 import ChooseAmount from '@/components/ChooseAmount.vue';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -183,7 +187,8 @@ export default {
       productData: null,
       productLoading: false,
       productLoadingFailed: false,
-
+      productAdded: false,
+      productAddSending: false,
     };
   },
 
@@ -201,11 +206,22 @@ export default {
     category() {
       return this.productData.category;
     },
+    // productColor() {
+    //   return this.productData.color;
+    // },
   },
   methods: {
+    ...mapActions(['addProductToCart']),
+
     goToPage,
     addToCart() {
-      this.$store.commit('addProductToCart', { productId: this.product.id, amount: this.productAmount });
+      this.productAdded = false;
+      this.productAddSending = true;
+      this.addProductToCart({ productId: this.product.id, amount: this.productAmount })
+        .then(() => {
+          this.productAdded = true;
+          this.productAddSending = false;
+        });
     },
     loadProduct() {
       this.productLoading = true;

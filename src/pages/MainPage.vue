@@ -11,7 +11,7 @@
 
     <div class="content__catalog">
       <ProductFilter :price-from.sync="filterPriceFrom" :price-to.sync="filterPriceTo"
-        :category-id.sync="filterCategoryId" :colorProd.sync="filterColor">
+        :category-id.sync="filterCategoryId" :colorProdId.sync="filterColorId">
       </ProductFilter>
       <section class="catalog">
 
@@ -46,7 +46,7 @@ export default {
       filterPriceFrom: 0,
       filterPriceTo: 0,
       filterCategoryId: 0,
-      filterColor: '', //= Фильтрация цвета*
+      filterColorId: 0, //= Фильтрация цвета*
       page: 1,
       productsPerPage: 5,
       productsData: null,
@@ -78,7 +78,7 @@ export default {
             page: this.page,
             limit: this.productsPerPage,
             categoryId: this.filterCategoryId,
-            colorId: this.filterColor,
+            colorId: this.filterColorId,
             minPrice: this.filterPriceFrom,
             maxPrice: this.filterPriceTo,
           },
@@ -102,7 +102,7 @@ export default {
     filterCategoryId() {
       this.loadProducts();
     },
-    filterColor() {
+    filterColorId() {
       this.loadProducts();
     },
   },

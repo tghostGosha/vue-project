@@ -30,8 +30,8 @@
         <ul class="colors">
           <li class="colors__item" v-for="color in productsColor" :key="color.id">
             <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.code"
-                v-model="currentColor">
+              <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.id"
+                v-model.number="currentColorId">
               <span class="colors__value" :style="{background: color.code}">
               </span>
             </label>
@@ -118,15 +118,36 @@ import API_BASE_URL from '@/config';
 export default {
   data() {
     return {
-      currentPriceFrom: 0,
-      currentPriceTo: 0,
-      currentCategoryId: 0,
-      currentColor: '',
+      currentPriceFrom: this.priceFrom,
+      currentPriceTo: this.priceTo,
+      currentCategoryId: this.categoryId,
+      currentColorId: this.colorProdId,
       categoriesData: null,
       colorsData: null,
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoryId', 'colorProd'],
+  // props2: ['priceFrom', 'priceTo', 'categoryId', 'colorProdId'],
+  props: {
+    categoryId: {
+      type: Number,
+      default: 0,
+    },
+
+    priceFrom: {
+      type: Number,
+      default: 0,
+    },
+
+    priceTo: {
+      type: Number,
+      default: 0,
+    },
+
+    colorProdId: {
+      type: Number,
+      default: 0,
+    },
+  },
   computed: {
     productsColor() {
       // const colors = products.map((item) => {
@@ -145,6 +166,7 @@ export default {
       // const colorArray = new Set(newArrayofArrays);
       // // console.log(colorArray);
       // return colorArray;
+      console.log(this.colorsData);
       return this.colorsData ? this.colorsData.items : [];
     },
 
@@ -163,8 +185,8 @@ export default {
     categoryId(value) {
       this.currentCategoryId = value;
     },
-    colorProd(value) {
-      this.currentColor = value;
+    colorProdId(value) {
+      this.currentColorId = value;
     },
   },
   methods: {
@@ -173,13 +195,14 @@ export default {
       this.$emit('update:priceFrom', this.currentPriceFrom);
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
-      this.$emit('update:colorProd', this.currentColor);
+      this.$emit('update:colorProdId', this.currentColorId);
+      console.log([this.currentColorId, this.currentCategoryId, this.currentPriceFrom, this.currentPriceTo]);
     },
     reset() {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
-      this.$emit('update:colorProd', 0);
+      this.$emit('update:colorProdId', 0);
     },
     loadCategories() {
       axios.get(`${API_BASE_URL}/api/productCategories`)

@@ -35,6 +35,7 @@ export default {
 
   },
   methods: {
+
     amountPlus() {
       this.productAmount += 1;
     },
@@ -46,14 +47,15 @@ export default {
 
   },
   computed: {
-    // amount: {
-    //   get() {
-    //     return this.item.amount;
-    //   },
-    //   set(value) {
-    //     this.$store.commit('updateCartProduct', { productId: this.item.productId, amount: value });
-    //   },
-    // },
+    amount: {
+      get() {
+        return this.item.amount;
+      },
+      set(value) {
+        this.$store.dispatch('updateCartProduct', { productId: this.item.productId, amount: value });
+      },
+    },
   },
+
 };
 </script>
