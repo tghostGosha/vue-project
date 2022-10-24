@@ -96,7 +96,7 @@ export default new Vuex.Store({
     }) {
       return (new Promise((resolve) => setTimeout(resolve, 2000)))
         .then(() => axios
-          .post(`${API_BASE_URL} + /api/baskets/products`, {
+          .post(`${API_BASE_URL}/api/baskets/products`, {
             productId,
             quantity: amount,
           }, {
@@ -119,7 +119,7 @@ export default new Vuex.Store({
         return;
       }
       return axios
-        .put(`${API_BASE_URL} + /api/baskets/products`, {
+        .put(`${API_BASE_URL}/api/baskets/products`, {
           productId,
           quantity: amount,
         }, {
@@ -140,7 +140,7 @@ export default new Vuex.Store({
     })
      {
       return axios
-        .delete(`${API_BASE_URL} + /api/baskets/products`, {
+        .delete(`${API_BASE_URL}/api/baskets/products`, {
           productId,
         }, {
           params: {
@@ -151,7 +151,7 @@ export default new Vuex.Store({
           context.commit('deleteCartProduct', response.data.items);
           context.commit('syncCartProducts');
         })
-       
+
     },
   },
 });
