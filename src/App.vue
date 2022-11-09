@@ -19,7 +19,6 @@
     <router-view></router-view>
 
     <FooterComponent></FooterComponent>
-
   </div>
 </template>
 

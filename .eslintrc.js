@@ -26,6 +26,7 @@ module.exports = {
     //   "tsx": "never",
     //   "vue": "never"
     // }],
+  //  "eslint linebreak-style": ["error", "unix"], // changes the file to CRLF
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/label-has-for": "off",
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -49,6 +50,8 @@ module.exports = {
     }],
 
     "vuejs-accessibility/label-has-for": "off",
+    "vuejs-accessibility/form-has-label": "off",
+    "vuejs-accessibility/form-control-has-label": "off",
 
 
 

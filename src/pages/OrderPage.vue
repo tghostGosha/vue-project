@@ -32,38 +32,20 @@
         <div class="cart__field">
           <div class="cart__data">
 
-            <BaseFormText title="ФИО" v-model="formData.name" :error="formError.name"
+            <BaseFormText v-model="formData.name" title="ФИО" :error="formError.name"
               placeholder="Введите ваше полное имя"></BaseFormText>
 
-            <!-- <label class="form__label">
-              <input class="form__input" v-model="formData.name" type="text" name="name"
-                placeholder="Введите ваше полное имя">
-              <span class="form__value">ФИО</span>
-              <span class="form__error" v-if="formError.name">{{ formError.name }}</span>
-            </label> -->
+            <BaseFormText v-model="formData.address" title="Адрес доставки" :error="formError.address"
+              placeholder="Введите ваш адрес"></BaseFormText>
 
-            <label class="form__label">
-              <input class="form__input" v-model="formData.address" type="text" name="address"
-                placeholder="Введите ваш адрес">
-              <span class="form__value">Адрес доставки</span>
-              <span class="form__error" v-if="formError.address">{{ formError.address }}</span>
-            </label>
+            <BaseFormText v-model="formData.phone" title="Телефон" type="tel" :error="formError.phone"
+              placeholder="Введите ваш телефон"></BaseFormText>
 
-            <label class="form__label">
-              <input class="form__input" v-model="formData.phone" type="tel" name="phone"
-                placeholder="Введите ваш телефон">
-              <span class="form__value">Телефон</span>
-              <span class="form__error" v-if="formError.phone">{{ formError.phone }}</span>
-            </label>
+            <BaseFormText v-model="formData.email" title="email" type="email" :error="formError.email"
+              placeholder="Введи ваш Email"></BaseFormText>
 
-            <label class="form__label">
-              <input class="form__input" v-model="formData.email" type="email" name="email"
-                placeholder="Введи ваш Email">
-              <span class="form__value">Email</span>
-              <span class="form__error" v-if="formError.email">{{ formError.email }}</span>
-            </label>
-            <BaseFormTextArea title="Комментарий к заказу" v-model="formData.name" placeholder="Ваши пожелания"
-              :error="formError.name"></BaseFormTextArea>
+            <BaseFormTextArea title="Комментарий к заказу" v-model="formData.comments" placeholder="Ваши пожелания"
+              :error="formError.comments"></BaseFormTextArea>
           </div>
 
           <div class="cart__options">
@@ -149,6 +131,7 @@
 </template>
 <script>
 // import BaseFormField from '@/components/BaseFormField.vue';
+
 import BaseFormText from '@/components/BaseFormText.vue';
 import BaseFormTextArea from '@/components/BaseFormTextArea.vue';
 
