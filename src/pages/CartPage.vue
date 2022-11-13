@@ -11,14 +11,14 @@
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
-          <router-link class="breadcrumbs__link" :to="{name: 'main'}">
+          <router-link class="breadcrumbs__link" :to="{ name: 'main' }">
             Каталог
           </router-link>
         </li>
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link">
+          <router-link class="breadcrumbs__link" :to="{ name: 'cart' }">
             Корзина
-          </a>
+          </router-link>
         </li>
       </ul>
 
@@ -26,7 +26,7 @@
         Корзина
       </h1>
       <span class="content__info">
-        3 товара
+        {{ products.length }} {{ (this.products.length) | wordChangeEnding }}
       </span>
     </div>
 
@@ -40,11 +40,11 @@
                 <img :src="item.product.image" width="120" height="120" :alt="item.product.title">
               </div>
               <h3 class="product__title">
-                {{item.product.title}}
+                {{ item.product.title }}
               </h3>
 
               <span class="product__code">
-                Артикул: {{item.product.id}}
+                Артикул: {{ item.product.id }}
               </span>
 
               <div class="product__counter form__counter">
@@ -64,7 +64,7 @@
               </div>
 
               <b class="product__price">
-                {{(item.amount*item.product.price) | numberFormat}} ₽
+                {{ (item.amount * item.product.price) | numberFormat }} ₽
               </b>
 
               <button class="product__del button-del" type="button" aria-label="Удалить товар из корзины">
@@ -82,10 +82,10 @@
             Мы&nbsp;посчитаем стоимость доставки на&nbsp;следующем этапе
           </p>
           <p class="cart__price">
-            Итого: <span>{{totalPrice | numberFormat}} ₽</span>
+            Итого: <span>{{ totalPrice | numberFormat }} ₽</span>
           </p>
 
-          <router-link tag="button" :to="{name:'order'}" class="cart__button button button--primery" type="submit">
+          <router-link tag="button" :to="{ name: 'order' }" class="cart__button button button--primery" type="submit">
             Оформить заказ
           </router-link>
         </div>
@@ -101,6 +101,7 @@ import CartItem from '@/components/CartItem.vue';
 import goToPage from '@/helpers/goToPage';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
+import wordChangeEnding from '@/helpers/wordChangeEnding';
 
 export default {
   data() {
@@ -111,7 +112,7 @@ export default {
 
     };
   },
-  filters: { numberFormat },
+  filters: { numberFormat, wordChangeEnding },
   components: { CartItem },
   computed: {
     ...mapGetters({ products: 'cartDetailProducts', totalPrice: 'cartTotalPrice' }), //= =Проксируем//

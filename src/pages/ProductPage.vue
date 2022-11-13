@@ -182,7 +182,7 @@ import { mapActions } from 'vuex';
 export default {
   data() {
     return {
-      productAmount: 0,
+      productAmount: 1,
       productData: null,
       productLoading: false,
       productLoadingFailed: false,
