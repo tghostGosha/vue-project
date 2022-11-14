@@ -32,13 +32,13 @@
             Наши менеджеры свяжутся с&nbsp;Вами в&nbsp;течение часа для уточнения деталей доставки.
           </p>
 
-          <ul class="dictionary" >
+          <ul class="dictionary" v-if="buyerInfoFields !== null">
             <li class="dictionary__item">
               <span class="dictionary__key">
                 Получатель
               </span>
               <span class="dictionary__value">
-                {{ $store.state.orderInfo.name }}
+                {{ buyerInfoFields.name }}
               </span>
             </li>
             <li class="dictionary__item">
@@ -46,7 +46,7 @@
                 Адрес доставки
               </span>
               <span class="dictionary__value">
-                {{ this.$store.state.orderInfo.address }}
+                {{ buyerInfoFields.address }}
               </span>
             </li>
             <li class="dictionary__item">
@@ -54,7 +54,7 @@
                 Телефон
               </span>
               <span class="dictionary__value">
-                {{ this.$store.state.orderInfo.phone }}
+                {{ buyerInfoFields.phone }}
               </span>
             </li>
             <li class="dictionary__item">
@@ -62,7 +62,7 @@
                 Email
               </span>
               <span class="dictionary__value">
-                {{ this.$store.state.orderInfo.email }}
+                {{ buyerInfoFields.email }}
               </span>
             </li>
             <li class="dictionary__item">
@@ -75,41 +75,40 @@
             </li>
           </ul>
         </div>
-
-        <div class="cart__block">
-          <ul class="cart__orders">
-            <li class="cart__order">
-              <h3>Смартфон Xiaomi Redmi Note 7 Pro 6/128GB</h3>
-              <b>18 990 ₽</b>
-              <span>Артикул: 150030</span>
-            </li>
-            <li class="cart__order">
-              <h3>Гироскутер Razor Hovertrax 2.0ii</h3>
-              <b>4 990 ₽</b>
-              <span>Артикул: 150030</span>
-            </li>
-            <li class="cart__order">
-              <h3>Электрический дрифт-карт Razor Lil’ Crazy</h3>
-              <b>8 990 ₽</b>
-              <span>Артикул: 150030</span>
-            </li>
-          </ul>
-
+        <CartProductListVue v-if="buyerInfoFields !== null" :items="buyerInfoFields.basket.items">
           <div class="cart__total">
             <p>Доставка: <b>500 ₽</b></p>
-            <p>Итого: <b>3</b> товара на сумму <b>37 970 ₽</b></p>
+            <p>Итого: <b>{{ buyerInfoFields.basket.items.length }}</b>
+              {{ (buyerInfoFields.basket.items.length) | wordChangeEnding }} на сумму <b>{{
+                  buyerInfoFields.totalPrice | numberFormat
+              }} ₽
+              </b></p>
           </div>
-        </div>
+        </CartProductListVue>
       </form>
     </section>
   </main>
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import CartProductListVue from '@/components/CartProductList.vue';
+import wordChangeEnding from '@/helpers/wordChangeEnding';
+import numberFormat from '@/helpers/numberFormat';
 
 export default {
+  components: { CartProductListVue },
+  filters: { numberFormat, wordChangeEnding },
   computed: {
     ...mapGetters({ products: 'cartDetailProducts', totalPrice: 'cartTotalPrice' }),
+
+    buyerInfoFields() {
+      let result = {};
+      if (typeof this.$store.state.orderInfo !== 'undefined') {
+        result = this.$store.state.orderInfo;
+      }
+      console.log(result);
+      return result;
+    },
   },
   created() {
     if (this.$store.state.orderInfo && this.$store.state.orderInfo.id === this.$route.params.id) {

@@ -23,7 +23,7 @@
         Корзина
       </h1>
       <span class="content__info">
-        {{ products.length }} {{(this.products.length) | wordChangeEnding }}
+        {{ products.length }} {{ (this.products.length) | wordChangeEnding }}
       </span>
     </div>
 
@@ -90,29 +90,19 @@
             </ul>
           </div>
         </div>
-
-        <div class="cart__block">
-          <ul class="cart__orders">
-            <li class="cart__order" v-for="item in products" :key="item.productId" :item="item">
-              <h3>{{ item.product.title }}</h3>
-              <b>{{ (item.amount * item.product.price) | numberFormat }} ₽</b>
-              <span>Артикул: {{ item.product.id }}</span>
-            </li>
-
-          </ul>
-
+        <CartProductListVue :items="products">
           <div class="cart__total">
             <p>Доставка: <b>500 ₽</b></p>
-            <p>Итого: <b>{{ products.length }}</b> {{(this.products.length) | wordChangeEnding }} на сумму <b>{{
-                totalPrice | numberFormat
-            }} ₽
+            <p>Итого: <b>{{ products.length }}</b>
+              {{ (products.length) | wordChangeEnding }} на сумму <b>{{
+                  totalPrice | numberFormat
+              }} ₽
               </b></p>
           </div>
-
           <button class="cart__button button button--primery" type="submit">
             Оформить заказ
           </button>
-        </div>
+        </CartProductListVue>
         <div class="cart__error form__error-block" v-if="formErrorMessage">
           <h4>Заявка не отправлена!</h4>
           <p>
@@ -131,9 +121,10 @@ import API_BASE_URL from '@/config';
 import axios from 'axios';
 import { mapGetters } from 'vuex';
 import wordChangeEnding from '@/helpers/wordChangeEnding';
+import CartProductListVue from '@/components/CartProductList.vue';
 
 export default {
-  components: { BaseFormText, BaseFormTextArea },
+  components: { BaseFormText, BaseFormTextArea, CartProductListVue },
 
   data() {
     return {
