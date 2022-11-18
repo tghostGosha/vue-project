@@ -17,3 +17,5 @@ git commit -m 'deploy'
 $ git push -f https://github.com/tghostGosha/vue-app.git master:gh-pages
 
 cd -
+
+# sh deploy.sh прописать в командно  строке

@@ -26,7 +26,7 @@
         Корзина
       </h1>
       <span class="content__info">
-        {{ products.length }} {{ (this.products.length) | wordChangeEnding }}
+        {{ products.length }} {{ (this.products.length) }}
       </span>
     </div>
 
@@ -64,7 +64,7 @@
               </div>
 
               <b class="product__price">
-                {{ (item.amount * item.product.price) | numberFormat }} ₽
+                {{ (item.amount * item.product.price) }} ₽
               </b>
 
               <button class="product__del button-del" type="button" aria-label="Удалить товар из корзины">
@@ -82,11 +82,12 @@
             Мы&nbsp;посчитаем стоимость доставки на&nbsp;следующем этапе
           </p>
           <p class="cart__price">
-            Итого: <span>{{ totalPrice | numberFormat }} ₽</span>
+            Итого: <span>{{ totalPricePretty }} ₽</span>
           </p>
 
-          <router-link tag="button" :to="{ name: 'order' }" class="cart__button button button--primery" type="submit">
-            Оформить заказ
+          <router-link v-slot="{navigate}" :to="{ name: 'order' }" custom>
+            <button class="cart__button button button--primery" type="button" :disabled="!totalPrice"
+            @click="navigate">Оформить заказ</button>
           </router-link>
         </div>
       </form>
@@ -101,9 +102,11 @@ import CartItem from '@/components/CartItem.vue';
 import goToPage from '@/helpers/goToPage';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
-import wordChangeEnding from '@/helpers/wordChangeEnding';
+// import wordChangeEnding from '@/helpers/wordChangeEnding';
 
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   data() {
     return {
       productData: null,
@@ -112,10 +115,13 @@ export default {
 
     };
   },
-  filters: { numberFormat, wordChangeEnding },
+
   components: { CartItem },
   computed: {
     ...mapGetters({ products: 'cartDetailProducts', totalPrice: 'cartTotalPrice' }), //= =Проксируем//
+    totalPricePretty() {
+      return numberFormat(this.totalPrice)
+    },
   },
   methods: {
     goToPage,
@@ -134,5 +140,5 @@ export default {
   created() {
     this.loadProducts();
   },
-};
+})
 </script>

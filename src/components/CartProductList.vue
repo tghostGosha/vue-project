@@ -3,7 +3,7 @@
     <ul class="cart__orders">
       <li class="cart__order" v-for="item in items" :key="item.product.id" :item="item">
         <h3>{{ item.product.title }}</h3>
-        <b>{{ item.product.price | numberFormat}} ₽</b>
+        <b>{{ pricePretty}} ₽</b>
         <span>Артикул: {{ item.product.id }}</span>
       </li>
     </ul>
@@ -13,7 +13,7 @@
 </template>
 <script>
 // import { mapGetters } from 'vuex';
-import wordChangeEnding from '@/helpers/wordChangeEnding';
+// import wordChangeEnding from '@/helpers/wordChangeEnding';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
@@ -21,7 +21,12 @@ export default {
   // data() {
   //   return {};
   // },
-  filters: { numberFormat, wordChangeEnding },
+
+  computed: {
+   pricePretty() {
+      return numberFormat(this.item.product.price)
+    },
+  },
   props: {
     items: {
       type: Object,

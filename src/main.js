@@ -1,19 +1,12 @@
-import Vue from 'vue';
-import loader from 'vue-ui-preloader';
+import {createApp, h} from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 
-// import { firstText, seconText } from './data';
-// import alertText from './function';
+const app = createApp({
+  render: () => h(App),
+});
 
-Vue.config.productionTip = false;
-Vue.use(loader);
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount('#app');
-
-// alertText(firstText);
-// alertText(seconText);
+app.use(router);
+app.use(store);
+app.mount('#app');

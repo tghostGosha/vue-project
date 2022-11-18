@@ -2,18 +2,18 @@
 
   <li class="catalog__item">
 
-    <router-link class="catalog__pic" :to="{name: 'product', params: {id:product.id}}">
+    <router-link class="catalog__pic" :to="{ name: 'product', params: { id: product.id } }">
       <img v-bind:src="product.image" v-bind:alt="product.title">
     </router-link>
 
     <h3 class="catalog__title">
       <a href="#">
-        {{ product.title}}
+        {{ product.title }}
       </a>
     </h3>
 
     <span class="catalog__price">
-      {{product.price | numberFormat}} ₽
+      {{ pricePretty }} ₽
     </span>
 
     <ul class="colors colors--black">
@@ -21,7 +21,7 @@
         <label class="colors__label">
           <input class="colors__radio sr-only" type="radio" :name="color.title" :value="color.id">
           <!--checked=""-->
-          <span class="colors__value" :style="{background: color.code}">
+          <span class="colors__value" :style="{ background: color.code }">
           </span>
         </label>
       </li>
@@ -35,14 +35,8 @@ import goToPage from '@/helpers/goToPage';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
-  // data() {
-  //   return {
-  //     color: '#73B6EA',
-  //   };
-  // },
-  filters: {
-    numberFormat,
-  },
+  
+
   props: {
     product: {
       type: Object,
@@ -50,13 +44,13 @@ export default {
         return {};
       },
     },
-    // productColors: {
-    //   type: Array,
-    //   default() {
-    //     return [];
-    //   },
-    // },
 
+
+  },
+  computed: {
+    pricePretty() {
+      return numberFormat(this.product.price)
+    },
   },
   methods: {
     goToPage,

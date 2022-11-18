@@ -1,12 +1,10 @@
 /* eslint-disable */
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
 
-Vue.use(Vuex);
 
-export default new Vuex.Store({
+export default createStore({
   state: {
     cartProducts: [],
     userAccessKey: null,
@@ -14,20 +12,7 @@ export default new Vuex.Store({
     orderInfo: null
   },
   mutations: {
-    // addProductToCart(state, {
-    //   productId,
-    //   amount,
-    // }) {
-    //   const item = state.cartProducts.find((el) => el.productId === productId);
-    //   if (item) {
-    //     item.amount += amount;
-    //   } else {
-    //     state.cartProducts.push({
-    //       productId,
-    //       amount,
-    //     });
-    //   }
-    // },
+ 
     updateOrderInfo(state, orderInfo) {
       state.orderInfo = orderInfo;
     },

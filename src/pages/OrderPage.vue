@@ -23,7 +23,7 @@
         Корзина
       </h1>
       <span class="content__info">
-        {{ products.length }} {{ (this.products.length) | wordChangeEnding }}
+        {{ products.length }} {{ (this.products.length) }}
       </span>
     </div>
 
@@ -94,8 +94,8 @@
           <div class="cart__total">
             <p>Доставка: <b>500 ₽</b></p>
             <p>Итого: <b>{{ products.length }}</b>
-              {{ (products.length) | wordChangeEnding }} на сумму <b>{{
-                  totalPrice | numberFormat
+              {{ (products.length)}} на сумму <b>{{
+                  totalPricePretty
               }} ₽
               </b></p>
           </div>
@@ -120,7 +120,7 @@ import BaseFormTextArea from '@/components/BaseFormTextArea.vue';
 import API_BASE_URL from '@/config';
 import axios from 'axios';
 import { mapGetters } from 'vuex';
-import wordChangeEnding from '@/helpers/wordChangeEnding';
+// import wordChangeEnding from '@/helpers/wordChangeEnding';
 import CartProductListVue from '@/components/CartProductList.vue';
 
 export default {
@@ -133,9 +133,12 @@ export default {
       formErrorMessage: '',
     };
   },
-  filters: { numberFormat, wordChangeEnding },
+
   computed: {
     ...mapGetters({ products: 'cartDetailProducts', totalPrice: 'cartTotalPrice' }),
+    totalPricePretty() {
+      return numberFormat(this.totalPrice)
+    },
   },
   methods: {
     order() {

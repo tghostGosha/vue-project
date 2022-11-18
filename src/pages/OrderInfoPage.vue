@@ -79,8 +79,8 @@
           <div class="cart__total">
             <p>Доставка: <b>500 ₽</b></p>
             <p>Итого: <b>{{ buyerInfoFields.basket.items.length }}</b>
-              {{ (buyerInfoFields.basket.items.length) | wordChangeEnding }} на сумму <b>{{
-                  buyerInfoFields.totalPrice | numberFormat
+              {{ (buyerInfoFields.basket.items.length) }} на сумму <b>{{
+                  buyerInfoFields.totalPricePretty
               }} ₽
               </b></p>
           </div>
@@ -92,15 +92,19 @@
 <script>
 import { mapGetters } from 'vuex';
 import CartProductListVue from '@/components/CartProductList.vue';
-import wordChangeEnding from '@/helpers/wordChangeEnding';
+// import wordChangeEnding from '@/helpers/wordChangeEnding';
 import numberFormat from '@/helpers/numberFormat';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
+
   components: { CartProductListVue },
-  filters: { numberFormat, wordChangeEnding },
+
   computed: {
     ...mapGetters({ products: 'cartDetailProducts', totalPrice: 'cartTotalPrice' }),
-
+    totalPricePretty() {
+      return numberFormat(this.totalPrice)
+    },
     buyerInfoFields() {
       let result = {};
       if (typeof this.$store.state.orderInfo !== 'undefined') {
@@ -116,5 +120,5 @@ export default {
     }
     this.$store.dispatch('loadOrderInfo', this.$route.params.id);
   },
-};
+});
 </script>

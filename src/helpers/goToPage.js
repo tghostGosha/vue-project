@@ -1,7 +1,7 @@
-import eventBus from '@/eventBus';
+// import eventBus from '@/eventBus';
 
-export default function goToPage(pageName, pageParams) {
-  setTimeout(() => {
-    eventBus.$emit('goToPage', pageName, pageParams);
-  }, 1000);
-}
+// export default function goToPage(pageName, pageParams) {
+//   setTimeout(() => {
+//     eventBus.$emit('goToPage', pageName, pageParams);
+//   }, 1000);
+// }

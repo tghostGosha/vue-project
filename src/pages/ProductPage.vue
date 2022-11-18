@@ -42,7 +42,7 @@
         <div class="item__form">
           <form class="form" action="#" method="POST" @submit.prevent="addToCart">
             <b class="item__price">
-              {{product.price | numberFormat}} ₽
+              {{pricePretty}} ₽
             </b>
 
             <fieldset class="form__block">
@@ -192,10 +192,11 @@ export default {
   },
 
   components: { ChooseAmount },
-  filters: {
-    numberFormat,
-  },
+
   computed: {
+    pricePretty() {
+      return numberFormat(this.product.price)
+    },
     product() {
       return this.productData;
     },
@@ -234,17 +235,21 @@ export default {
       }, 1000);
     },
   },
-  // created() {
-  //   this.loadProduct();
-  // },
-  watch: { // чтобы страница товара перерисовывалась, при изменении id товара в адресной строке, добавлеяем watcher
-    '$route.params.id': {
-      handler() {
-        this.loadProduct();
-      },
-      immediate: true, // чтобы избавится от хука created
-    },
+
+  created() {
+    this.loadProduct();
   },
+  beforeRouteUpdate() {
+    this.loadProduct();
+  },
+  // watch: { // чтобы страница товара перерисовывалась, при изменении id товара в адресной строке, добавлеяем watcher
+  //   '$route.params.id': {
+  //     handler() {
+  //       this.loadProduct();
+  //     },
+  //     immediate: true, // чтобы избавится от хука created
+  //   },
+  // },
 
 };
 </script>

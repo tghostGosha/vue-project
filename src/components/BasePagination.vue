@@ -28,24 +28,26 @@
 </template>
 
 <script>
+
+
 export default {
-  model: {
-    prop: 'page',
-    event: 'paginate',
-  },
-  props: ['page', 'count', 'perPage'],
+
+  props: ['modelValue', 'count', 'perPage'],
   computed: {
+    page() {
+      return this.modelValue
+    },
     pages() {
       return Math.ceil(this.count / this.perPage);
     },
   },
   methods: {
     paginate(page) {
-      this.$emit('paginate', page);
+      this.$emit('update:modelValue', page);
     },
     paginatePrev(page) {
       if (page > 1) {
-        this.$emit('paginate', page - 1);
+        this.$emit('update:modelValue', page - 1);
       } else {
         (
           console.log(page)
@@ -54,7 +56,7 @@ export default {
     },
     paginateNext(page, pages) {
       if (page < pages) {
-        this.$emit('paginate', page + 1);
+        this.$emit('update:modelValue', page + 1);
       } else {
         (
           console.log(page)
