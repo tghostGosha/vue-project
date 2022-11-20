@@ -6,10 +6,11 @@
   </label>
 </template>
 <script>
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
 
   props: ['title', 'error'],
 
-};
+});
 </script>

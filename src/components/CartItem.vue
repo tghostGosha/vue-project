@@ -30,8 +30,9 @@
 import numberFormat from '@/helpers/numberFormat';
 import { mapActions } from 'vuex';
 import ChooseAmount from './ChooseAmount.vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
 
   components: { ChooseAmount },
 
@@ -45,8 +46,8 @@ export default {
 
         return this.item.amount;
       },
-      set(value) {
-        this.$store.dispatch('updateCartProductAmount', { productId: this.item.productId, amount: value });
+      set(modelValue) {
+        this.$store.dispatch('updateCartProductAmount', { productId: this.item.productId, amount: modelValue });
       },
     },
   },
@@ -66,5 +67,5 @@ export default {
     },
 
   },
-};
+});
 </script>

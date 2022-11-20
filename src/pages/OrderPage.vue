@@ -122,8 +122,8 @@ import axios from 'axios';
 import { mapGetters } from 'vuex';
 // import wordChangeEnding from '@/helpers/wordChangeEnding';
 import CartProductListVue from '@/components/CartProductList.vue';
-
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
   components: { BaseFormText, BaseFormTextArea, CartProductListVue },
 
   data() {
@@ -166,5 +166,5 @@ export default {
 
   },
 
-};
+});
 </script>

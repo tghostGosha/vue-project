@@ -28,9 +28,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 
 
-export default {
+export default defineComponent({
 
   props: ['modelValue', 'count', 'perPage'],
   computed: {
@@ -64,5 +65,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

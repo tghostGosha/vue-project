@@ -37,8 +37,9 @@ import BasePagination from '@/components/BasePagination.vue';
 import ProductFilter from '@/components/ProductFilter.vue';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
 
   components: { ProductList, BasePagination, ProductFilter },
   data() {
@@ -109,5 +110,5 @@ export default {
   created() {
     this.loadProducts();
   },
-};
+});
 </script>

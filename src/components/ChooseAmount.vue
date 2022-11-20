@@ -20,17 +20,18 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   data() {
     return {
-      productAmount: this.$attrs.value,
+      productAmount: this.$attrs.modelValue,
     };
   },
   watch: {
-    productAmount(value) {
-      this.$emit('input', value);
-      console.log(value);
+    productAmount(modelValue) {
+      this.$emit('update', modelValue);
+      console.log(modelValue);
     },
 
   },
@@ -51,11 +52,11 @@ export default {
       get() {
         return this.item.amount;
       },
-      set(value) {
-        this.$store.dispatch('updateCartProduct', { productId: this.item.productId, amount: value });
+      set(modelValue) {
+        this.$store.dispatch('updateCartProduct', { productId: this.item.productId, amount: modelValue });
       },
     },
   },
 
-};
+});
 </script>

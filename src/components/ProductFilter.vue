@@ -114,8 +114,8 @@
 // import products from '@/data/products';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
-
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
   data() {
     return {
       currentPriceFrom: this.priceFrom,
@@ -150,22 +150,7 @@ export default {
   },
   computed: {
     productsColor() {
-      // const colors = products.map((item) => {
-      //   const colorsArray = item.colors;
-      //   return colorsArray;
-      // });
 
-      // const newArrayofArrays = [];
-      // colors.forEach((element) => {
-      //   element.forEach((el) => {
-      //     newArrayofArrays.push(el);
-      //   });
-      //   // console.log(element);
-      //   // console.log(newArrey);
-      // });
-      // const colorArray = new Set(newArrayofArrays);
-      // // console.log(colorArray);
-      // return colorArray;
       console.log(this.colorsData);
       return this.colorsData ? this.colorsData.items : [];
     },
@@ -176,17 +161,17 @@ export default {
   },
 
   watch: {
-    priceFrom(value) {
-      this.currentPriceFrom = value;
+    priceFrom(modelValue) {
+      this.currentPriceFrom = modelValue;
     },
-    priceTo(value) {
-      this.currentPriceTo = value;
+    priceTo(modelValue) {
+      this.currentPriceTo = modelValue;
     },
-    categoryId(value) {
-      this.currentCategoryId = value;
+    categoryId(modelValue) {
+      this.currentCategoryId = modelValue;
     },
-    colorProdId(value) {
-      this.currentColorId = value;
+    colorProdId(modelValue) {
+      this.currentColorId = modelValue;
     },
   },
   methods: {
@@ -217,6 +202,6 @@ export default {
     this.loadCategories();
     this.loadColors();
   },
-};
+});
 
 </script>

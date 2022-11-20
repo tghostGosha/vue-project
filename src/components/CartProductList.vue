@@ -15,8 +15,9 @@
 // import { mapGetters } from 'vuex';
 // import wordChangeEnding from '@/helpers/wordChangeEnding';
 import numberFormat from '@/helpers/numberFormat';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
 
   // data() {
   //   return {};
@@ -38,5 +39,5 @@ export default {
   methods: {
 
   },
-};
+});
 </script>

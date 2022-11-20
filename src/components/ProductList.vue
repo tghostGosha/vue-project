@@ -11,10 +11,10 @@
 
 <script>
 import ProductItem from './ProductItem.vue';
-
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
   props: ['products'],
   components: { ProductItem },
-};
+});
 
 </script>

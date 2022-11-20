@@ -33,9 +33,10 @@
 <script>
 import goToPage from '@/helpers/goToPage';
 import numberFormat from '@/helpers/numberFormat';
+import { defineComponent } from 'vue';
 
-export default {
-  
+export default defineComponent({
+
 
   props: {
     product: {
@@ -55,6 +56,6 @@ export default {
   methods: {
     goToPage,
   },
-};
+});
 
 </script>

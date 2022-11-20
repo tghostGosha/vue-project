@@ -1,5 +1,7 @@
 /* eslint-disable */
-import { createStore } from 'vuex';
+import {
+  createStore
+} from 'vuex';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
 
@@ -12,7 +14,7 @@ export default createStore({
     orderInfo: null
   },
   mutations: {
- 
+
     updateOrderInfo(state, orderInfo) {
       state.orderInfo = orderInfo;
     },
@@ -68,15 +70,15 @@ export default createStore({
   actions: {
     loadOrderInfo(context, orderId) {
       return axios
-      .get(`${API_BASE_URL}/api/orders/${orderId}`, {
-        params: {
-          userAccessKey: context.state.userAccessKey,
-        },
+        .get(`${API_BASE_URL}/api/orders/${orderId}`, {
+          params: {
+            userAccessKey: context.state.userAccessKey,
+          },
 
-      })
-      .then(response => {
-        context.commit('updateOrderInfo', response.data)
-      })
+        })
+        .then(response => {
+          context.commit('updateOrderInfo', response.data)
+        })
     },
     loadCart(context) {
       return axios

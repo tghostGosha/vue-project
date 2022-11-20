@@ -178,8 +178,9 @@ import ChooseAmount from '@/components/ChooseAmount.vue';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
 import { mapActions } from 'vuex';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   data() {
     return {
       productAmount: 1,
@@ -251,5 +252,5 @@ export default {
   //   },
   // },
 
-};
+});
 </script>
