@@ -1,5 +1,5 @@
 <template>
-  <div>
+
     <header class="header">
       <div class="header__wrapper container">
         <span class="header__info">Каталог</span>
@@ -19,7 +19,7 @@
     <router-view></router-view>
 
     <FooterComponent></FooterComponent>
-  </div>
+  
 </template>
 
 <script>

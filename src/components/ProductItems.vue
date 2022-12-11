@@ -1,6 +1,6 @@
 <template>
 
-  <li class="catalog__item">
+  <li v-bind="$attrs"  v-for="product in productsNormalized" :key="product.id" :ref="fillRefs">
 
     <router-link class="catalog__pic" :to="{ name: 'product', params: { id: product.id } }">
       <img v-bind:src="product.image" v-bind:alt="product.title">
@@ -13,7 +13,7 @@
     </h3>
 
     <span class="catalog__price">
-      {{ pricePretty }} ₽
+      {{ product.pricePretty }} ₽
     </span>
 
     <ul class="colors colors--black">
@@ -37,25 +37,47 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
 
-
+  inheritAttrs: false,
+  emits: ['Myclick'],
+  data() {
+    return {
+      productsElements: []
+    }
+  },
   props: {
-    product: {
+    products: {
       type: Object,
       default() {
         return {};
       },
     },
-
-
   },
   computed: {
-    pricePretty() {
-      return numberFormat(this.product.price)
+    productsNormalized() {
+      return this.products.map((product) => {
+        return {
+          ...product,
+          pricePretty: numberFormat(product.price)
+        }
+      });
     },
+
   },
   methods: {
     goToPage,
+    fillRefs(element) {
+      if( element) {
+        this.productsElements.push(element)
+      }
+      console.log(this.productsElements)
+    }
   },
+  beforeUpdate() {
+    this.productsElements = []
+  },
+  mounted() {
+    this.$emit('Myclick', 'yay')
+  }
 });
 
 </script>

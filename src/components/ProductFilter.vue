@@ -1,8 +1,8 @@
 <template>
   <aside class="filter">
-    <h2 class="filter__title">Фильтры</h2>
+    <h2  class="filter__title">Фильтры</h2>
 
-    <form class="filter__form form" action="#" method="get" @submit.prevent="submit">
+    <form v-bind="$attrs" class="filter__form form" action="#" method="get" @submit.prevent="submit">
       <fieldset class="form__block">
         <legend class="form__legend">Цена</legend>
         <label class="form__label form__label--price">
@@ -18,7 +18,7 @@
       <fieldset class="form__block">
         <legend class="form__legend">Категория</legend>
         <label class="form__label form__label--select">
-          <select class="form__select" type="text" name="category" v-model.number="currentCategoryId">
+          <select class="form__select" name="category" v-model.number="currentCategoryId">
             <option value="0">Все категории</option>
             <option :value="category.id" v-for="category in categories" :key="category.id">{{category.title}}</option>
           </select>

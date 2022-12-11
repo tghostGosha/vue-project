@@ -10,9 +10,12 @@
     </div>
 
     <div class="content__catalog">
-      <ProductFilter v-model:price-from="filterPriceFrom" v-model:price-to="filterPriceTo"
-        v-model:category-id="filterCategoryId" v-model:colorProdId="filterColorId">
-      </ProductFilter>
+      <aside class="filter">
+
+        <ProductFilter v-model:price-from="filterPriceFrom" v-model:price-to="filterPriceTo"
+          v-model:category-id="filterCategoryId" v-model:colorProdId="filterColorId" class="filter-test">
+        </ProductFilter>
+      </aside>
       <section class="catalog">
 
         <loader v-if="productsLoading" object="#1ed25d" color1="#ffffff" color2="#2bb141" size="15" speed="2"
